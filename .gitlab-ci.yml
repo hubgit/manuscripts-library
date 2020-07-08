@@ -2,7 +2,7 @@ image: node:12-buster
 
 stages:
   - build
-#  - deploy
+  - publish
 
 build:
   stage: build
@@ -19,10 +19,10 @@ build:
     reports:
       junit: junit.xml
 
-#publish:
-#  stage: deploy
-#  only:
-#    refs:
-#      - master
-#  script:
-#    - npx @manuscripts/publish
+publish:
+  stage: publish
+  only:
+    refs:
+      - master
+  script:
+    - npx @manuscripts/publish
