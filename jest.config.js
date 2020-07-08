@@ -13,7 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// eslint-disable-next-line import/no-unresolved
-import 'csl-json'
-
-export * from './lib'
+module.exports = {
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
+  testPathIgnorePatterns: ['/node_modules/', '<rootDir>/dist/'],
+  testRegex: '__tests__.*\\.test\\.tsx?$',
+  transformIgnorePatterns: [
+    '<rootDir>/node_modules/(?!(lodash-es|@manuscripts)/)',
+  ],
+}

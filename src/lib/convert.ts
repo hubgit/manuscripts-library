@@ -17,7 +17,6 @@
 import {
   buildBibliographicDate,
   buildBibliographicName,
-  CSL,
 } from '@manuscripts/manuscript-transform'
 import {
   BibliographicDate,
@@ -25,7 +24,7 @@ import {
   BibliographyItem,
 } from '@manuscripts/manuscripts-json-schema'
 
-const roleFields: Array<keyof CSL.RoleFields> = [
+const personFields: Array<CSL.PersonFieldKey> = [
   'author',
   'collection-editor',
   'composer',
@@ -33,15 +32,15 @@ const roleFields: Array<keyof CSL.RoleFields> = [
   'director',
   'editor',
   'editorial-director',
-  'interviewer',
   'illustrator',
+  'interviewer',
   'original-author',
   'recipient',
   'reviewed-author',
   'translator',
 ]
 
-const dateFields: Array<keyof CSL.DateFields> = [
+const dateFields: Array<CSL.DateFieldKey> = [
   'accessed',
   'container',
   'event-date',
@@ -50,7 +49,7 @@ const dateFields: Array<keyof CSL.DateFields> = [
   'submitted',
 ]
 
-const standardFields: Array<keyof CSL.StandardFields> = [
+const stringFields: Array<CSL.StringFieldKey> = [
   'abstract',
   'annote',
   'archive',
@@ -58,24 +57,24 @@ const standardFields: Array<keyof CSL.StandardFields> = [
   'archive_location',
   'authority',
   'call-number',
-  'categories',
-  'chapter-number',
+  // 'categories',
+  // 'chapter-number',
   'citation-label',
   'citation-number',
-  'collection-number',
+  // 'collection-number',
   'collection-title',
   'container-title',
   'container-title-short',
   'dimensions',
   'DOI',
-  'edition',
+  // 'edition',
   'event',
   'event-place',
   'first-reference-note-number',
   'genre',
   'ISBN',
   'ISSN',
-  'issue',
+  // 'issue',
   'journalAbbreviation',
   'jurisdiction',
   'keyword',
@@ -84,8 +83,8 @@ const standardFields: Array<keyof CSL.StandardFields> = [
   'medium',
   'note',
   'number',
-  'number-of-pages',
-  'number-of-volumes',
+  // 'number-of-pages',
+  // 'number-of-volumes',
   'original-publisher',
   'original-publisher-place',
   'original-title',
@@ -104,40 +103,58 @@ const standardFields: Array<keyof CSL.StandardFields> = [
   'status',
   'title',
   'title-short',
-  'type',
+  // 'type',
   'URL',
   'version',
-  'volume',
+  // 'volume',
   'year-suffix',
 ]
 
-const numberFields = [
+const numberFields: Array<CSL.NumberFieldKey> = [
   'chapter-number',
-  'citation-number',
+  // 'citation-number',
   'collection-number',
-  'number',
+  'edition',
+  'issue',
+  // 'number',
   'number-of-pages',
   'number-of-volumes',
+  'volume',
 ]
 
+const isNumberFieldKey = (key: string): key is CSL.NumberFieldKey =>
+  numberFields.includes(key as CSL.NumberFieldKey)
+
+const isStringFieldKey = (key: string): key is CSL.StringFieldKey =>
+  stringFields.includes(key as CSL.StringFieldKey)
+
+const isPersonFieldKey = (key: string): key is CSL.PersonFieldKey =>
+  personFields.includes(key as CSL.PersonFieldKey)
+
+const isDateFieldKey = (key: string): key is CSL.DateFieldKey =>
+  dateFields.includes(key as CSL.DateFieldKey)
+
 export const convertDataToBibliographyItem = (
-  data: CSL.Item
+  data: CSL.Data
 ): Partial<BibliographyItem> => {
   // const output: { [key in keyof BibliographyItem]: BibliographyItem[key] } = {}
 
-  const output: { [key: string]: unknown } = {}
+  const output: Partial<BibliographyItem> = {
+    // id: data.id,
+    type: data.type,
+  }
 
   for (const [key, item] of Object.entries(data)) {
-    if (key === 'circa') {
-      output[key] = Boolean(item)
-    } else if (standardFields.includes(key as keyof CSL.StandardFields)) {
-      output[key] = numberFields.includes(key) ? Number(item) : item
-    } else if (roleFields.includes(key as keyof CSL.RoleFields)) {
-      output[key] = (item as CSL.Name[]).map((value) =>
-        buildBibliographicName(value)
-      )
-    } else if (dateFields.includes(key as keyof CSL.DateFields)) {
-      output[key] = buildBibliographicDate(item as CSL.Date)
+    if (isNumberFieldKey(key)) {
+      // @ts-ignore TODO
+      output[key] = Number.isInteger(item) ? item : String(item)
+    } else if (isStringFieldKey(key)) {
+      // @ts-ignore TODO
+      output[key] = String(item)
+    } else if (isPersonFieldKey(key)) {
+      output[key] = (item as CSL.Person[]).map(buildBibliographicName)
+    } else if (isDateFieldKey(key)) {
+      output[key] = buildBibliographicDate(item as Partial<BibliographicDate>)
     }
   }
 
@@ -146,18 +163,20 @@ export const convertDataToBibliographyItem = (
 
 export const convertBibliographyItemToData = (
   bibliographyItem: BibliographyItem
-): CSL.Item =>
+): CSL.Data =>
   Object.entries(bibliographyItem).reduce(
     (output, [key, item]) => {
-      if (standardFields.includes(key as keyof CSL.StandardFields)) {
-        output[key] = item as string
-      } else if (roleFields.includes(key as keyof CSL.RoleFields)) {
+      if (isNumberFieldKey(key)) {
+        output[key] = Number.isInteger(item) ? item : String(item)
+      } else if (isStringFieldKey(key)) {
+        output[key] = String(item)
+      } else if (isPersonFieldKey(key)) {
         output[key] = (item as BibliographicName[]).map((name) => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { _id, objectType, ...rest } = name
           return rest
-        }) as CSL.Name[]
-      } else if (dateFields.includes(key as keyof CSL.DateFields)) {
+        }) as CSL.Person[]
+      } else if (isDateFieldKey(key)) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { _id, objectType, ...rest } = item as BibliographicDate
         output[key] = rest as CSL.Date
@@ -168,5 +187,19 @@ export const convertBibliographyItemToData = (
     {
       id: bibliographyItem._id,
       type: bibliographyItem.type || 'article-journal',
-    } as CSL.Item & { [key: string]: unknown }
+    } as CSL.Data
   )
+
+export const fixCSLData = (item: CSL.Data): CSL.Data => {
+  // ensure that string fields don't contain arrays
+  stringFields.forEach((key) => {
+    if (key in item) {
+      if (Array.isArray(item[key])) {
+        const [data] = (item[key] as unknown) as string[]
+        item[key] = data || undefined
+      }
+    }
+  })
+
+  return item
+}

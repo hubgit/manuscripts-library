@@ -16,8 +16,6 @@
 
 import CiteProc from 'citeproc'
 
-import { CSL } from '../types/csl'
-
 const createDoiUrl = (doi: string) =>
   'https://doi.org/' + encodeURIComponent(doi.replace(/^.*?(10\.)/, '$1'))
 
@@ -38,7 +36,7 @@ const createSpan = (contents: string): Element => {
 
 const wrapVariable = (
   field: string,
-  itemData: CSL.Item,
+  itemData: CSL.Data,
   str: string
 ): Element => {
   switch (field) {

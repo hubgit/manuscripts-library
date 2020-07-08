@@ -19,7 +19,7 @@ describe('bibliography variable wrapper', () => {
   test('wraps DOIs with links', () => {
     const itemData = {
       DOI: '10.1234/567.10.foo',
-    }
+    } as CSL.Data
 
     const result = variableWrapper(
       {
@@ -40,7 +40,7 @@ describe('bibliography variable wrapper', () => {
   test('wraps URLs with links', () => {
     const itemData = {
       URL: 'https://example.com',
-    }
+    } as CSL.Data
 
     const result = variableWrapper(
       {
@@ -62,7 +62,7 @@ describe('bibliography variable wrapper', () => {
     const itemData = {
       title: 'An example',
       DOI: '10.1234/567',
-    }
+    } as CSL.Data
 
     const result = variableWrapper(
       {
@@ -84,7 +84,7 @@ describe('bibliography variable wrapper', () => {
     const itemData = {
       title: 'An example',
       URL: 'https://example.com',
-    }
+    } as CSL.Data
 
     const result = variableWrapper(
       {
@@ -106,7 +106,7 @@ describe('bibliography variable wrapper', () => {
     const itemData = {
       title: 'An example with <i>some</i> markup',
       URL: 'https://example.com',
-    }
+    } as CSL.Data
 
     const result = variableWrapper(
       {

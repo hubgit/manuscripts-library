@@ -15,5 +15,8 @@
  */
 export * from './bibliography'
 export * from './citation-processor'
+export * from './citations'
 export * from './convert'
+export * from './library'
+export * from './papers-citations'
 export * from './variable-wrapper'

@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-// @ts-ignore
-import { CSL } from '@manuscripts/manuscript-transform'
 import {
   BibliographyItem,
   ObjectTypes,
@@ -24,11 +22,12 @@ import {
 import {
   convertBibliographyItemToData,
   convertDataToBibliographyItem,
+  fixCSLData,
 } from '../convert'
 
 describe('CSL', () => {
   test('converts data from CSL to bibliography items', () => {
-    const data: CSL.Item = {
+    const data: CSL.Data = {
       id: 'foo',
       type: 'article',
       DOI: 'foo',
@@ -87,5 +86,22 @@ describe('CSL', () => {
       illustrator: [{ family: 'Derp' }],
       type: 'article-journal',
     })
+  })
+
+  test('ensures that string fields do not contain arrays', () => {
+    const item: CSL.Data = {
+      id: 'test',
+      type: 'article-journal',
+      title: 'Foo',
+      // @ts-ignore
+      ISSN: ['1234-5678'],
+      issue: 23,
+    }
+
+    const result = fixCSLData(item)
+
+    expect(result.title).toBe('Foo')
+    expect(result.issue).toBe(23)
+    expect(result.ISSN).toBe('1234-5678')
   })
 })
