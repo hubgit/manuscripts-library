@@ -19,14 +19,14 @@ import { data } from '@manuscripts/examples/data/project-dump-2.json'
 import { Decoder, findManuscript } from '@manuscripts/manuscript-transform'
 import { BibliographyItem, Model } from '@manuscripts/manuscripts-json-schema'
 
+import { createProcessor, loadStyle } from '../citation-processor'
 import {
   buildCitationNodes,
   buildCitations,
   GetLibraryItem,
   GetManuscript,
   GetModel,
-} from '../bibliography'
-import { createProcessor, loadStyle } from '../citation-processor'
+} from '../citations'
 
 describe('citation processor', () => {
   test('generates bibliography', async () => {

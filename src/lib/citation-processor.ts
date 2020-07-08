@@ -16,7 +16,6 @@
 import { BibliographyItem, Bundle } from '@manuscripts/manuscripts-json-schema'
 import CiteProc from 'citeproc'
 
-import { CSL } from '../types/csl'
 import { convertBibliographyItemToData } from './convert'
 import { variableWrapper } from './variable-wrapper'
 
@@ -53,7 +52,7 @@ export const createProcessor = async (
 
   return new CiteProc.Engine(
     {
-      retrieveItem: (id: string): CSL.Item => {
+      retrieveItem: (id: string): CSL.Data => {
         const item = getLibraryItem(id)
 
         if (!item) {

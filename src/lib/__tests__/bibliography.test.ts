@@ -17,7 +17,7 @@
 import { schema } from '@manuscripts/manuscript-transform'
 import { Node } from 'prosemirror-model'
 
-import { bibliographyElementContents } from '../bibliography'
+import { bibliographyElementContents } from '../citations'
 
 describe('bibliography', () => {
   test('generates bibliography element contents', () => {

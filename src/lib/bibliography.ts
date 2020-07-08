@@ -1,5 +1,5 @@
 /*!
- * © 2019 Atypon Systems LLC
+ * © 2020 Atypon Systems LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,90 +14,127 @@
  * limitations under the License.
  */
 
-import {
-  CitationNode,
-  isCitationNode,
-  ManuscriptNode,
-} from '@manuscripts/manuscript-transform'
-import {
-  BibliographyItem,
-  Citation,
-  CitationItem,
-  Manuscript,
-  Model,
-} from '@manuscripts/manuscripts-json-schema'
-import CiteProc from 'citeproc'
+import { BibliographyItem } from '@manuscripts/manuscripts-json-schema'
 
-export const buildCitationNodes = (
-  doc: ManuscriptNode,
-  getModel: GetModel
-): CitationNodes => {
-  const citationNodes: CitationNodes = []
+import { convertDataToBibliographyItem } from './convert'
 
-  doc.descendants((node, pos) => {
-    if (isCitationNode(node)) {
-      const citation = getModel<Citation>(node.attrs.rid)
+const chooseParser = (format: string) => {
+  format = format.replace(/^application\/(x-)?/, '')
 
-      if (citation) {
-        citationNodes.push([node, pos, citation])
+  switch (format) {
+    case '.bib':
+    case 'bibtex':
+      return import('astrocite-bibtex')
+
+    case '.ris':
+    case 'research-info-systems':
+      return import('astrocite-ris')
+
+    case 'papers-citations-xml':
+      return import('./papers-citations')
+
+    case 'citeproc+json':
+      return Promise.resolve({
+        parse: JSON.parse,
+      })
+
+    default:
+      throw new Error(`Unknown citation format ${format}`)
+  }
+}
+
+const validRISLine = /^(\w{2}\s{2}-\s.+|ER\s{2}-\s*)$/
+
+export const transformBibliography = async (
+  data: string,
+  extension: string
+): Promise<Array<Partial<BibliographyItem>>> => {
+  const { parse } = await chooseParser(extension)
+
+  if (extension === '.ris') {
+    // remove invalid lines
+    data = data
+      .split(/[\n\r]+/)
+      .filter((line) => validRISLine.test(line))
+      .join('\n')
+  }
+
+  const items = parse(data) as CSL.Data[]
+
+  return items.map(convertDataToBibliographyItem)
+}
+
+export const matchLibraryItemByIdentifier = (
+  item: BibliographyItem,
+  library: Map<string, BibliographyItem>
+): BibliographyItem | undefined => {
+  if (library.has(item._id)) {
+    return library.get(item._id)
+  }
+
+  if (item.DOI) {
+    const doi = item.DOI.toLowerCase()
+
+    for (const model of library.values()) {
+      if (model.DOI && model.DOI.toLowerCase() === doi) {
+        return model
       }
     }
-  })
-
-  return citationNodes
-}
-
-export type CitationNodes = Array<[CitationNode, number, Citation]>
-export type GetLibraryItem = (id: string) => BibliographyItem | undefined
-export type GetModel = <T extends Model>(id: string) => T | undefined
-export type GetManuscript = () => Manuscript
-
-type DisplayScheme = 'show-all' | 'author-only' | 'suppress-author'
-
-const chooseMode = (displayScheme?: DisplayScheme) => {
-  if (displayScheme === 'show-all') {
-    return undefined
   }
 
-  return displayScheme
-}
-
-export const buildCitations = (
-  citationNodes: CitationNodes,
-  getLibraryItem: GetLibraryItem,
-  getManuscript: GetManuscript
-): CiteProc.Citation[] =>
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  citationNodes.map(([node, pos, citation]) => ({
-    citationID: citation._id,
-    citationItems: citation.embeddedCitationItems.map(
-      (citationItem: CitationItem) => ({
-        id: citationItem.bibliographyItem,
-        data: getLibraryItem(citationItem.bibliographyItem), // for comparison
-      })
-    ),
-    properties: {
-      noteIndex: 0,
-      mode: chooseMode(citation.displayScheme),
-    },
-    manuscript: getManuscript(), // for comparison
-  }))
-
-export const bibliographyElementContents = (
-  node: ManuscriptNode,
-  id: string,
-  items: string[]
-): string => {
-  const contents = document.createElement('div')
-  contents.classList.add('csl-bib-body')
-  contents.setAttribute('id', id)
-
-  if (items.length) {
-    contents.innerHTML = items.join('\n')
-  } else {
-    contents.classList.add('empty-node')
-    contents.setAttribute('data-placeholder', node.attrs.placeholder)
+  if (item.PMID) {
+    for (const model of library.values()) {
+      if (model.PMID && model.PMID === item.PMID) {
+        return model
+      }
+    }
   }
 
-  return contents.outerHTML
+  if (item.URL) {
+    const url = item.URL.toLowerCase()
+
+    for (const model of library.values()) {
+      if (model.URL && model.URL.toLowerCase() === url) {
+        return model
+      }
+    }
+  }
 }
+
+export const bibliographyItemTypes = new Map<CSL.ItemType, string>([
+  ['article', 'Article'],
+  ['article-journal', 'Journal Article'],
+  ['article-magazine', 'Magazine Article'],
+  ['article-newspaper', 'Newspaper Article'],
+  ['bill', 'Bill'],
+  ['book', 'Book'],
+  ['broadcast', 'Broadcast'],
+  ['chapter', 'Chapter'],
+  ['dataset', 'Dataset'],
+  ['entry', 'Entry'],
+  ['entry-dictionary', 'Dictionary Entry'],
+  ['entry-encyclopedia', 'Encyclopedia Entry'],
+  ['figure', 'Figure'],
+  ['graphic', 'Graphic'],
+  ['interview', 'Interview'],
+  ['legal_case', 'Legal Case'],
+  ['legislation', 'Legislation'],
+  ['manuscript', 'Manuscript'],
+  ['map', 'Map'],
+  ['motion_picture', 'Motion Picture'],
+  ['musical_score', 'Musical Score'],
+  ['pamphlet', 'Pamphlet'],
+  ['paper-conference', 'Conference Paper'],
+  ['patent', 'Patent'],
+  ['personal_communication', 'Personal Communication'],
+  ['post', 'Post'],
+  ['post-weblog', 'Blog Post'],
+  ['report', 'Report'],
+  ['review', 'Review'],
+  ['review-book', 'Book Review'],
+  ['song', 'Song'],
+  ['speech', 'Speech'],
+  ['thesis', 'Thesis'],
+  ['treaty', 'Treaty'],
+  ['webpage', 'Web Page'],
+])
