@@ -24,11 +24,15 @@
   },
   "dependencies": {
     "@manuscripts/csl-locales": "^0.0.4",
+    "@manuscripts/csl-styles": "^0.1.1",
     "@manuscripts/data": "^0.0.7",
     "@manuscripts/manuscript-transform": "^0.32.0",
     "citeproc": "^2.4.6"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
+    "@babel/preset-typescript": "^7.10.4",
     "@manuscripts/eslint-config": "^0.3.0",
     "@manuscripts/examples": "^0.0.7",
     "@manuscripts/manuscripts-json-schema": "^1.30.0",
@@ -36,6 +40,7 @@
     "@types/prosemirror-model": "^1.7.2",
     "@typescript-eslint/eslint-plugin": "^3.6.0",
     "@typescript-eslint/parser": "^3.6.0",
+    "babel-plugin-dynamic-import-node": "^2.3.3",
     "concurrently": "^5.2.0",
     "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.11.0",
