@@ -1,6 +1,6 @@
 {
   "name": "@manuscripts/library",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "repository": "gitlab:mpapp-public/manuscripts-library",
   "license": "Apache-2.0",
   "main": "dist/cjs",
@@ -53,7 +53,9 @@
     "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-react-hooks": "^4.0.6",
     "eslint-plugin-simple-import-sort": "^5.0.3",
+    "husky": "^4.2.5",
     "jest": "^26.1.0",
+    "jest-junit": "^11.0.1",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "typescript": "^3.9.6"
