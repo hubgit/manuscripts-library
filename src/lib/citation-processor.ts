@@ -32,7 +32,7 @@ export const createProcessor = async (
   getLibraryItem: (id: string) => BibliographyItem | undefined,
   options: Options = {}
 ): Promise<CiteProc.Engine> => {
-  const citationStyleData: string | CiteProc.Style | undefined =
+  const citationStyleData: string | undefined =
     options.citationStyleData ||
     (await loadCitationStyleFromBundle(options.bundle)) ||
     (await loadCitationStyleFromBundleID(options.bundleID))
@@ -41,9 +41,7 @@ export const createProcessor = async (
     throw new Error('Missing citation style data')
   }
 
-  const parentStyleData = await findParentStyle(citationStyleData)
-
-  // TODO: merge metadata (locales) into parent from child?
+  const styleData = await buildDependendentStyle(citationStyleData)
 
   const locales = (await import(
     // @ts-ignore
@@ -64,7 +62,7 @@ export const createProcessor = async (
       retrieveLocale: (id: string): CiteProc.Locale => locales[id],
       variableWrapper,
     },
-    parentStyleData || citationStyleData,
+    styleData,
     primaryLanguageCode,
     false
   )
@@ -72,17 +70,15 @@ export const createProcessor = async (
 
 const loadCitationStyleFromBundle = async (
   bundle?: Bundle
-): Promise<CiteProc.Style | undefined> => {
+): Promise<string | undefined> => {
   if (bundle && bundle.csl && bundle.csl.cslIdentifier) {
     return loadStyle(bundle.csl.cslIdentifier)
   }
-
-  return undefined
 }
 
 const loadCitationStyleFromBundleID = async (
   bundleID?: string
-): Promise<CiteProc.Style | undefined> => {
+): Promise<string | undefined> => {
   const bundles: Bundle[] = await import(
     // @ts-ignore
     '@manuscripts/data/dist/shared/bundles.json'
@@ -93,36 +89,46 @@ const loadCitationStyleFromBundleID = async (
   return loadCitationStyleFromBundle(bundle)
 }
 
-const findParentStyle = async (
-  citationStyleData: string | CiteProc.Style
-): Promise<CiteProc.Style | undefined> => {
-  const parser = CiteProc.setupXml(citationStyleData)
+const buildDependendentStyle = async (
+  citationStyleData: string
+): Promise<string> => {
+  // const parser = CiteProc.setupXml(citationStyleData)
 
-  const links = parser.getNodesByName(parser.dataObj, 'link') as CiteProc.Node[]
-
-  const parentLink = links.find(
-    (link) => link.attrs.rel === 'independent-parent'
+  const doc = new DOMParser().parseFromString(
+    citationStyleData,
+    'application/xml'
   )
 
-  if (parentLink) {
-    const href = parentLink.attrs.href as string | undefined
+  const parentLink = doc.evaluate(
+    '/style/info/link[@rel="independent-parent"]/@href',
+    doc,
+    null,
+    XPathResult.STRING_TYPE
+  ).stringValue
 
-    if (href && href.startsWith('http://www.zotero.org/styles/')) {
-      return loadStyle(href)
-    }
+  if (parentLink && parentLink.startsWith('http://www.zotero.org/styles/')) {
+    // TODO: merge metadata (locales) into parent from child?
+
+    return loadStyle(parentLink)
   }
+
+  return citationStyleData
 }
 
-export const loadStyle = async (id: string): Promise<CiteProc.Style> => {
+export const loadStyle = async (id: string): Promise<string> => {
   const basename = id.split('/').pop()
 
   if (!basename) {
-    throw new Error('No style name')
+    throw new Error(`No style name in ${id}`)
   }
 
-  const styles = await import(
+  const styles: Record<string, string> = await import(
     `@manuscripts/csl-styles/dist/${basename[0]}.json`
   )
 
-  return styles[id] as CiteProc.Style
+  if (!styles[id]) {
+    throw new Error(`Style ${id} not found`)
+  }
+
+  return styles[id]
 }

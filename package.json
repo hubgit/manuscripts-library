@@ -24,9 +24,9 @@
   },
   "dependencies": {
     "@manuscripts/csl-locales": "^0.0.4",
-    "@manuscripts/csl-styles": "^0.1.1",
+    "@manuscripts/csl-styles": "^0.2.0",
     "@manuscripts/data": "^0.0.7",
-    "@manuscripts/manuscript-transform": "^0.33.0",
+    "@manuscripts/manuscript-transform": "^0.34.0",
     "astrocite-bibtex": "^0.16.3",
     "astrocite-ris": "^0.16.0",
     "citeproc": "^2.4.6"

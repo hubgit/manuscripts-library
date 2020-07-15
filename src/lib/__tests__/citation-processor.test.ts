@@ -67,8 +67,7 @@ describe('citation processor', () => {
       //   bundle,
       // })
 
-      const style = await loadStyle(cslIdentifier)
-      const citationStyleData = JSON.stringify(style)
+      const citationStyleData = await loadStyle(cslIdentifier)
 
       const citationProcessor = await createProcessor('en-GB', getLibraryItem, {
         citationStyleData,
