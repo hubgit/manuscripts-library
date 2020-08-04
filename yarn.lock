@@ -528,10 +528,10 @@
   resolved "https://registry.yarnpkg.com/@manuscripts/csl-styles/-/csl-styles-0.2.0.tgz#8b8ae4e0afd9f9bbda371c1548d5854c703d8747"
   integrity sha512-Lr7am9TkzLYOJjgPr6pRtkd8IjX/atew6YX/9o9xspIZJla51fSSPk6cTCVtT70Srn1aShLxZF4hi1jZH5+Gzw==
 
-"@manuscripts/data@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@manuscripts/data/-/data-0.0.8.tgz#f272842533080726fe4634b0a305dfb38c10960a"
-  integrity sha512-kHk5kYL6GQ2HEZHTsNUaeszqVdNwCNPtD9cHdw2rZ+iyFSVX8vZwZYae6mUrtFjKTPK9qDGVXSGrgvtHMxAweA==
+"@manuscripts/data@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@manuscripts/data/-/data-0.0.9.tgz#596e5644148043cba02ebb61cbacb7ec26aa7e56"
+  integrity sha512-pKNK30mmlXpLXJqdst0Dl2yTTZ+xYs5RUveetGCUlN/fdkG/qB5tUKpv+b5eHWvUWF66Vjx1RPD+gF/LUjyKOw==
 
 "@manuscripts/eslint-config@^0.3.0":
   version "0.3.0"
@@ -555,10 +555,10 @@
     uuid "^8.2.0"
     w3c-xmlserializer "^2.0.0"
 
-"@manuscripts/manuscripts-json-schema@^1.30.2":
-  version "1.30.2"
-  resolved "https://registry.yarnpkg.com/@manuscripts/manuscripts-json-schema/-/manuscripts-json-schema-1.30.2.tgz#72acb85168e3977b856c08f24f4e48be9070ae4e"
-  integrity sha512-VkgSzatstHHGwL9etnziWQZtTTWvqKMjwHkaCI4UfCoQfbjr7D0LeHZxPXLJ5S5NHjJLpVp54o1tgbmkecysRg==
+"@manuscripts/manuscripts-json-schema@^1.30.2", "@manuscripts/manuscripts-json-schema@^1.31.1":
+  version "1.31.1"
+  resolved "https://registry.yarnpkg.com/@manuscripts/manuscripts-json-schema/-/manuscripts-json-schema-1.31.1.tgz#2d2310683461280d7d1f9797a85774dea692edbe"
+  integrity sha512-Qj6KymG4peajB1Lms6uR1SyUws1H5N0KTxifiFBt1HvQ4MJud8jNKAOa3HH9ZLIp76PHiQ6JD4txyzVGZ5NGZw==
   dependencies:
     ajv "^6.10.0"
     deepmerge "^3.2.0"

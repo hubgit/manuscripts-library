@@ -25,7 +25,7 @@
   "dependencies": {
     "@manuscripts/csl-locales": "^0.0.4",
     "@manuscripts/csl-styles": "^0.2.0",
-    "@manuscripts/data": "^0.0.8",
+    "@manuscripts/data": "^0.0.9",
     "@manuscripts/manuscript-transform": "^0.34.1",
     "astrocite-bibtex": "^0.16.3",
     "astrocite-ris": "^0.16.0",
@@ -37,7 +37,7 @@
     "@babel/preset-typescript": "^7.10.4",
     "@manuscripts/eslint-config": "^0.3.0",
     "@manuscripts/examples": "^0.0.7",
-    "@manuscripts/manuscripts-json-schema": "^1.30.2",
+    "@manuscripts/manuscripts-json-schema": "^1.31.1",
     "@types/jest": "^26.0.4",
     "@types/prosemirror-model": "^1.7.2",
     "@typescript-eslint/eslint-plugin": "^3.6.0",
