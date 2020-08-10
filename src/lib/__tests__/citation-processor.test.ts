@@ -52,6 +52,7 @@ describe('citation processor', () => {
       'http://www.zotero.org/styles/peerj',
       'http://www.zotero.org/styles/american-medical-association',
       'http://www.zotero.org/styles/3-biotech', // has independent-parent
+      'http://www.zotero.org/styles/infection-and-immunity', // has independent-parent
     ]
 
     for (const cslIdentifier of cslIdentifiers) {

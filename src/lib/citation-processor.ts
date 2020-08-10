@@ -15,6 +15,7 @@
  */
 import { BibliographyItem, Bundle } from '@manuscripts/manuscripts-json-schema'
 import CiteProc from 'citeproc'
+import { evaluateXPath, evaluateXPathToString } from 'fontoxpath'
 
 import { convertBibliographyItemToData } from './convert'
 import { variableWrapper } from './variable-wrapper'
@@ -24,6 +25,13 @@ interface Options {
   bundle?: Bundle
   citationStyleData?: string
 }
+
+const namespaceMap = new Map<string | null, string>([
+  ['csl', 'http://purl.org/net/xbiblio/csl'],
+])
+
+const namespaceResolver = (prefix: string | null): string | null =>
+  namespaceMap.has(prefix) ? (namespaceMap.get(prefix) as string) : null
 
 export type GetCitationProcessor = () => CiteProc.Engine | undefined
 
@@ -99,12 +107,13 @@ const buildDependendentStyle = async (
     'application/xml'
   )
 
-  const parentLink = doc.evaluate(
-    '/style/info/link[@rel="independent-parent"]/@href',
+  const parentLink = evaluateXPathToString(
+    '/csl:style/csl:info/csl:link[@rel="independent-parent"]/@href',
     doc,
-    null,
-    XPathResult.STRING_TYPE
-  ).stringValue
+    undefined,
+    undefined,
+    { namespaceResolver }
+  )
 
   if (parentLink && parentLink.startsWith('http://www.zotero.org/styles/')) {
     // TODO: merge metadata (locales) into parent from child?
