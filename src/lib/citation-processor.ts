@@ -15,7 +15,7 @@
  */
 import { BibliographyItem, Bundle } from '@manuscripts/manuscripts-json-schema'
 import CiteProc from 'citeproc'
-import { evaluateXPath, evaluateXPathToString } from 'fontoxpath'
+import { evaluateXPathToString } from 'fontoxpath'
 
 import { convertBibliographyItemToData } from './convert'
 import { variableWrapper } from './variable-wrapper'
