@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { evaluateXPathToString } from 'fontoxpath'
+
 const FIELD_MAPS: Map<string, keyof CSL.Data> = new Map([
   ['title', 'title'],
   ['publisher', 'publisher'],
@@ -144,15 +146,6 @@ export const parse = (xml: string): CSL.Data[] => {
 
     return nodes
   }
-
-  const evaluateXPathToString = (xpath: string, contextNode: Node): string =>
-    doc.evaluate(
-      `string(${xpath})`,
-      contextNode,
-      null,
-      XPathResult.STRING_TYPE,
-      null
-    ).stringValue
 
   const parseItem = (node: Node): CSL.Data => {
     const output: Partial<CSL.Data> = {}

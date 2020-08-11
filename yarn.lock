@@ -2100,6 +2100,13 @@ flatted@^2.0.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.2.tgz#4575b21e2bcee7434aa9be662f4b7b5f9c2b5138"
   integrity sha512-r5wGx7YeOwNWNlCA0wQ86zKyDLMQr+/RB8xy74M4hTphfmjlijTSSXGuH8rnvKZnfT9i+75zmd8jcKdMR4O6jA==
 
+fontoxpath@^3.12.1:
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/fontoxpath/-/fontoxpath-3.12.1.tgz#ce4858b75b12466a8979a1c767eaab9cbca06c24"
+  integrity sha512-c6gCK1BJPFAAf12z6HNA3LChYB6GNG80nJgX+DhEoBSgqdJLfHjM0CqwpyPi7IZLtco33wKhXG5eJwUq8WYvRg==
+  dependencies:
+    xspattern "^1.2.1"
+
 for-in@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
@@ -3923,6 +3930,11 @@ proto-list@~1.2.1:
   resolved "https://registry.yarnpkg.com/proto-list/-/proto-list-1.2.4.tgz#212d5bfe1318306a420f6402b8e26ff39647a849"
   integrity sha1-IS1b/hMYMGpCD2QCuOJv85ZHqEk=
 
+prsc@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/prsc/-/prsc-1.1.0.tgz#868f26c18a1dca3e94bf8446d0544af983901808"
+  integrity sha512-sNn5XUwyMA9dbF5l23ksu2+MsOKf+Ihuae0T88GMABgsKiPA1oLME3qdlrkPxyVVK6wFhO7VSKNuSyZrCYQrOg==
+
 pseudomap@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
@@ -4923,6 +4935,11 @@ which@^2.0.1, which@^2.0.2:
   dependencies:
     isexe "^2.0.0"
 
+whynot@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/whynot/-/whynot-3.0.3.tgz#56abf3e0e2e54f5550cebcc952ddf5b38e38f136"
+  integrity sha512-CyFCWOprdyBdUPoHCE7WIVH5lBqv2QHz2+WID/JaelCurmyn/wQ71O6wmJbX657HcLJfABKMRtsPp4XuzDO6Jw==
+
 word-wrap@^1.2.3, word-wrap@~1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.3.tgz#610636f6b1f703891bd34771ccb17fb93b47079c"
@@ -4994,6 +5011,14 @@ xregexp@^4.2.4:
   integrity sha512-7jXDIFXh5yJ/orPn4SXjuVrWWoi4Cr8jfV1eHv9CixKSbU+jY4mxfrBwAuDvupPNKpMUY+FeIqsVw/JLT9+B8g==
   dependencies:
     "@babel/runtime-corejs3" "^7.8.3"
+
+xspattern@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/xspattern/-/xspattern-1.2.1.tgz#0a5cc1192b3746543eb8dd988c3b80f0085917ac"
+  integrity sha512-fkM2XB5N8MOCQiEW2ITa8XIKKjqbNlFTOiqT9zKMPr7jMsBe1jIBq+E5HCm1c4kmgFRWqpVGyLloTQ/y1pW+Yg==
+  dependencies:
+    prsc "^1.1.0"
+    whynot "^3.0.3"
 
 y18n@^4.0.0:
   version "4.0.0"
