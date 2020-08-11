@@ -528,10 +528,10 @@
   resolved "https://registry.yarnpkg.com/@manuscripts/csl-styles/-/csl-styles-0.2.0.tgz#8b8ae4e0afd9f9bbda371c1548d5854c703d8747"
   integrity sha512-Lr7am9TkzLYOJjgPr6pRtkd8IjX/atew6YX/9o9xspIZJla51fSSPk6cTCVtT70Srn1aShLxZF4hi1jZH5+Gzw==
 
-"@manuscripts/data@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@manuscripts/data/-/data-0.0.9.tgz#596e5644148043cba02ebb61cbacb7ec26aa7e56"
-  integrity sha512-pKNK30mmlXpLXJqdst0Dl2yTTZ+xYs5RUveetGCUlN/fdkG/qB5tUKpv+b5eHWvUWF66Vjx1RPD+gF/LUjyKOw==
+"@manuscripts/data@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@manuscripts/data/-/data-0.0.10.tgz#85b934698f022b91d13eadd46e7dd3d0db87fb16"
+  integrity sha512-sWuIlZ0AW50haJlxCw4ucqvgM66gRsE9tp4O5hGQxmiDVcW/nXsCeArGpfbw5UGmqkukQCaLYxt3uAZrL4zRhw==
 
 "@manuscripts/eslint-config@^0.3.0":
   version "0.3.0"
@@ -543,22 +543,22 @@
   resolved "https://registry.yarnpkg.com/@manuscripts/examples/-/examples-0.0.7.tgz#f7f0cef173fb2c83fbf283a2c2962b5d6ea32874"
   integrity sha512-7a1y6H/wnvn4hTh7S+TEyC8R5tLHHNiWYJnbeS43JCMYS/6qhMCzJTS0PwQynoep7PWwi2LdgaSZ3qALxzgg0g==
 
-"@manuscripts/manuscript-transform@^0.34.1":
-  version "0.34.1"
-  resolved "https://registry.yarnpkg.com/@manuscripts/manuscript-transform/-/manuscript-transform-0.34.1.tgz#337e7a0a5233b1e1f07b73249356b0e34b1234f1"
-  integrity sha512-ngo/hkFt3TMDxJzy8tHke7A9khjbhGnROBSLLBqICWcFlmaEL+k/S5zlyWFBKA/x+x0/P9a0ArK1GtOB+IjaLA==
+"@manuscripts/manuscript-transform@^0.35.0":
+  version "0.35.0"
+  resolved "https://registry.yarnpkg.com/@manuscripts/manuscript-transform/-/manuscript-transform-0.35.0.tgz#8b8fc8048bc21930ba277bdb055a080a9614e9b0"
+  integrity sha512-6+oFsIo0SGOm5yd6KZbZVzfz3x2du1TpmxWzNtYM5haCbmeLT4t+m+YFy2DHOUnjLHyJ2wQS6koTkFF24puqHw==
   dependencies:
-    "@manuscripts/manuscripts-json-schema" "^1.30.2"
+    "@manuscripts/manuscripts-json-schema" "^1.32.0"
     debug "^4.1.1"
     mime-types "^2.1.27"
     prosemirror-model "^1.11.0"
     uuid "^8.2.0"
     w3c-xmlserializer "^2.0.0"
 
-"@manuscripts/manuscripts-json-schema@^1.30.2", "@manuscripts/manuscripts-json-schema@^1.31.1":
-  version "1.31.1"
-  resolved "https://registry.yarnpkg.com/@manuscripts/manuscripts-json-schema/-/manuscripts-json-schema-1.31.1.tgz#2d2310683461280d7d1f9797a85774dea692edbe"
-  integrity sha512-Qj6KymG4peajB1Lms6uR1SyUws1H5N0KTxifiFBt1HvQ4MJud8jNKAOa3HH9ZLIp76PHiQ6JD4txyzVGZ5NGZw==
+"@manuscripts/manuscripts-json-schema@^1.32.0":
+  version "1.32.0"
+  resolved "https://registry.yarnpkg.com/@manuscripts/manuscripts-json-schema/-/manuscripts-json-schema-1.32.0.tgz#e47dca8d9ee215fb8cfdfec25b785a03203a9fdf"
+  integrity sha512-1Ad1prk3VWLaYPHJwCcSaGw5c9ojtG91CQ307w0R50GC8t/grfDq7b3NuHLxETXpoE8NeWGvUyFlV5yWEcL6lQ==
   dependencies:
     ajv "^6.10.0"
     deepmerge "^3.2.0"
