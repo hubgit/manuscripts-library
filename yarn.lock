@@ -528,10 +528,10 @@
   resolved "https://registry.yarnpkg.com/@manuscripts/csl-styles/-/csl-styles-0.2.0.tgz#8b8ae4e0afd9f9bbda371c1548d5854c703d8747"
   integrity sha512-Lr7am9TkzLYOJjgPr6pRtkd8IjX/atew6YX/9o9xspIZJla51fSSPk6cTCVtT70Srn1aShLxZF4hi1jZH5+Gzw==
 
-"@manuscripts/data@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@manuscripts/data/-/data-0.0.10.tgz#85b934698f022b91d13eadd46e7dd3d0db87fb16"
-  integrity sha512-sWuIlZ0AW50haJlxCw4ucqvgM66gRsE9tp4O5hGQxmiDVcW/nXsCeArGpfbw5UGmqkukQCaLYxt3uAZrL4zRhw==
+"@manuscripts/data@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@manuscripts/data/-/data-0.1.0.tgz#b663eec1bf166e885dd1630f74ac5316c04a0c23"
+  integrity sha512-Wrq67UVjazhPL2Qb4CNQiyaQpwd05Di063h/9+blBkg1Cz/i/MxlIQ/ZSLnzqeBXRxKgHYVZW2koUAKyJft/EA==
 
 "@manuscripts/eslint-config@^0.3.0":
   version "0.3.0"
