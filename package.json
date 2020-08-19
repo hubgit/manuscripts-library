@@ -26,7 +26,7 @@
     "@manuscripts/csl-locales": "^0.0.4",
     "@manuscripts/csl-styles": "^0.2.0",
     "@manuscripts/data": "^0.1.0",
-    "@manuscripts/manuscript-transform": "^0.35.0",
+    "@manuscripts/manuscript-transform": "^0.36.0",
     "astrocite-bibtex": "^0.16.3",
     "astrocite-ris": "^0.16.0",
     "citeproc": "^2.4.6",
