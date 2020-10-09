@@ -18,15 +18,15 @@ import { BibliographyItem } from '@manuscripts/manuscripts-json-schema'
 
 import { convertDataToBibliographyItem } from './convert'
 
-const chooseParser = (format: string) => {
-  format = format.replace(/^application\/(x-)?/, '')
+export const chooseParser = (format: string) => {
+  format = format.replace(/^application\/(x-)?/, '').replace(/^\./, '')
 
   switch (format) {
-    case '.bib':
+    case 'bib':
     case 'bibtex':
       return import('astrocite-bibtex')
 
-    case '.ris':
+    case 'ris':
     case 'research-info-systems':
       return import('astrocite-ris')
 
