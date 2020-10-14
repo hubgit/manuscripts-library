@@ -19,9 +19,11 @@
 
 declare module 'citeproc' {
   interface Citation {
-    citationItems: Array<{ id: string }>
+    citationItems: Array<{ id: string; prefix?: string; suffix?: string }>
     properties?: {
+      mode?: string
       noteIndex?: number
+      infix?: string
     }
   }
 

@@ -52,7 +52,11 @@ export type GetLibraryItem = (id: string) => BibliographyItem | undefined
 export type GetModel = <T extends Model>(id: string) => T | undefined
 export type GetManuscript = () => Manuscript
 
-type DisplayScheme = 'show-all' | 'author-only' | 'suppress-author'
+type DisplayScheme =
+  | 'show-all'
+  | 'author-only'
+  | 'suppress-author'
+  | 'composite'
 
 const chooseMode = (displayScheme?: DisplayScheme) => {
   if (displayScheme === 'show-all') {
@@ -79,6 +83,10 @@ export const buildCitations = (
     properties: {
       noteIndex: 0,
       mode: chooseMode(citation.displayScheme),
+      prefix: citation.prefix,
+      suffix: citation.suffix,
+      infix:
+        citation.displayScheme === 'composite' ? citation.infix : undefined,
     },
     manuscript: getManuscript(), // for comparison
   }))
