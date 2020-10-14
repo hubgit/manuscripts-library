@@ -555,10 +555,10 @@
     uuid "^8.2.0"
     w3c-xmlserializer "^2.0.0"
 
-"@manuscripts/manuscripts-json-schema@^1.32.0":
-  version "1.32.0"
-  resolved "https://registry.yarnpkg.com/@manuscripts/manuscripts-json-schema/-/manuscripts-json-schema-1.32.0.tgz#e47dca8d9ee215fb8cfdfec25b785a03203a9fdf"
-  integrity sha512-1Ad1prk3VWLaYPHJwCcSaGw5c9ojtG91CQ307w0R50GC8t/grfDq7b3NuHLxETXpoE8NeWGvUyFlV5yWEcL6lQ==
+"@manuscripts/manuscripts-json-schema@^1.32.0", "@manuscripts/manuscripts-json-schema@^1.35.0":
+  version "1.35.0"
+  resolved "https://registry.yarnpkg.com/@manuscripts/manuscripts-json-schema/-/manuscripts-json-schema-1.35.0.tgz#881d4612756a1e727d086e0c4f7af2add5003a71"
+  integrity sha512-OYyAvL1yG3odUt3+Y0opmPGLp0UwqOWNP6Z37m/wht8eqNT9gjYJwoPRqzg7zCTjpAWsam+86z8XxY0lWPvErw==
   dependencies:
     ajv "^6.10.0"
     deepmerge "^3.2.0"
