@@ -31,9 +31,11 @@ describe('importer', () => {
 
     response.forEach((item) => {
       if (item.number) {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(typeof item.number).toBe('number')
       }
       if (item['number-of-pages']) {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(typeof item['number-of-pages']).toBe('number')
       }
     })
@@ -51,9 +53,11 @@ describe('importer', () => {
 
     response.forEach((item) => {
       if (item.number) {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(typeof item.number).toBe('number')
       }
       if (item['number-of-pages']) {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(typeof item['number-of-pages']).toBe('number')
       }
     })

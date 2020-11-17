@@ -76,6 +76,7 @@ describe('CSL', () => {
     })
 
     const itemMissingType = { ...item }
+    // @ts-ignore
     delete itemMissingType.type
     const dataWithDefaultType = convertBibliographyItemToData(itemMissingType)
 
